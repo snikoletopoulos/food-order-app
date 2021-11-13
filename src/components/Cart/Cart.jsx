@@ -5,6 +5,16 @@ import Modal from "../UI/Modal";
 import CartItem from "./CartItem";
 
 const Cart = props => {
+  const cartContext = useContext(CartContext);
+
+  const cartItemRemoveHandler = id => {
+    cartContext.removeItem(id);
+  };
+
+  const cartItemAddHandler = item => {
+    cartContext.addItem({ ...item, amount: 1 });
+  };
+
   const cartItems = (
     <ul className={styles["cart-items"]}>
       {cartContext.items.map(item => (
