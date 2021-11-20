@@ -14,7 +14,7 @@ const AvailableMeals = () => {
       try {
         setIsLoading(true);
         const response = await axios.get(
-          `${import.meta.env.VITE_FIREBASE_API_URL}meals`
+          `${import.meta.env.VITE_FIREBASE_API_URL}meals.json`
         );
 
         const loadedMeals = [];
