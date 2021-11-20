@@ -33,6 +33,12 @@ const AvailableMeals = () => {
     })();
   }, []);
 
+  if (isLoading) {
+    return (
+      <section className={styles['meals-loading']}>
+        <p>Loading...</p>
+      </section>
+    );
   }
 
   const mealsList = meals.map(meal => (
