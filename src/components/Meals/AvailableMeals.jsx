@@ -7,13 +7,14 @@ import axios from "axios";
 const AvailableMeals = () => {
   const [meals, setMeals] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [httpError, setHttpError] = useState();
 
   useEffect(() => {
     (async () => {
       try {
         setIsLoading(true);
         const response = await axios.get(
-          `${import.meta.env.VITE_FIREBASE_API_URL}meals.json`
+          `${import.meta.env.VITE_FIREBASE_API_URL}meals`
         );
 
         const loadedMeals = [];
@@ -28,6 +29,7 @@ const AvailableMeals = () => {
         setMeals(loadedMeals);
       } catch (error) {
         console.error(error);
+        setHttpError(error.message);
       }
       setIsLoading(false);
     })();
@@ -35,8 +37,16 @@ const AvailableMeals = () => {
 
   if (isLoading) {
     return (
-      <section className={styles['meals-loading']}>
+      <section className={styles["meals-loading"]}>
         <p>Loading...</p>
+      </section>
+    );
+  }
+
+  if (httpError) {
+    return (
+      <section className={styles["meals-error"]}>
+        <p>{httpError}</p>
       </section>
     );
   }
