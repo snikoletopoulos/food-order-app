@@ -19,7 +19,12 @@ const Checkout = () => {
         <label htmlFor="city">City</label>
         <input type="text" id="city" />
       </div>
-      <button>Confrim</button>
+      <div className={styles.actions}>
+        <button type="button" onClick={props.onCancel}>
+          Cancel
+        </button>
+        <button className={styles.submit}>Confirm</button>
+      </div>
     </form>
   );
 };
