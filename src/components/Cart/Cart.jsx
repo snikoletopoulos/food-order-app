@@ -4,9 +4,12 @@ import CartContext from "../../store/cart-context";
 import Modal from "../UI/Modal";
 import CartItem from "./CartItem";
 import Checkout from "./Checkout";
+import axios from "axios";
 
 const Cart = props => {
   const [isCheckout, setIsCheckout] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [didSubmit, setDidSubmit] = useState(false);
   const cartContext = useContext(CartContext);
 
   const cartItemRemoveHandler = id => {
@@ -19,6 +22,20 @@ const Cart = props => {
 
   const orderHandler = () => {
     setIsCheckout(true);
+  };
+
+  const submitOrderHandler = async userData => {
+    setIsSubmitting(true);
+    try {
+      await axios.post(`${import.meta.env.VITE_FIREBASE_API_URL}orders.json`, {
+        user: userData,
+        orderedItems: cartContext.items,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+    setIsSubmitting(false);
+    setDidSubmit(true);
   };
 
   const cartItems = (
@@ -52,14 +69,38 @@ const Cart = props => {
     </div>
   );
 
-  return (
-    <Modal onClose={props.onClose}>
+  const cartModalContent = (
+    <>
       {cartItems}
       <div className={styles.total}>
         <span>Total Amount</span>
         <span>{totalAmount}</span>
       </div>
-      {isCheckout ? <Checkout onCancel={props.onClose} /> : modalActions}
+      {isCheckout ? (
+        <Checkout onCancel={props.onClose} onConfirm={submitOrderHandler} />
+      ) : (
+        modalActions
+      )}
+    </>
+  );
+
+  const isSubmittingModalContent = <p>Sending order data...</p>;
+  const didSubmitModalContent = (
+    <>
+      <p>Succesfully send the order!</p>
+      <div className={styles.actions}>
+        <button className={styles.button} onClick={props.onClose}>
+          Close
+        </button>
+      </div>
+    </>
+  );
+
+  return (
+    <Modal onClose={props.onClose}>
+      {!isSubmitting && !didSubmit && cartModalContent}
+      {isSubmitting && isSubmittingModalContent}
+      {!isSubmitting && didSubmit && didSubmitModalContent}
     </Modal>
   );
 };
