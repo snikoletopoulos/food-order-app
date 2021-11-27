@@ -12,7 +12,7 @@ const Input = forwardRef((props: Props, ref) => {
 
 export default Input;
 
-interface Props {
+interface Props { // change input type
   input: {
     id: string;
     name: string;
