@@ -2,7 +2,7 @@ import styles from "./Header.module.css";
 import mealsImage from "../../assets/meals.jpg";
 import HeaderCartButton from "./HeaderCartButton";
 
-const Header = props => {
+const Header = ( props: Props ) => {
   return (
     <>
       <header className={styles.header}>
@@ -17,3 +17,7 @@ const Header = props => {
 };
 
 export default Header;
+
+interface Props {
+  onShowCart: () => void;
+}

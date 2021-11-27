@@ -7,7 +7,7 @@ import axios from "axios";
 const AvailableMeals = () => {
   const [meals, setMeals] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [httpError, setHttpError] = useState();
+  const [httpError, setHttpError] = useState<boolean>(false);
 
   useEffect(() => {
     (async () => {

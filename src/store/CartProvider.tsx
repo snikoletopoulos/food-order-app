@@ -75,7 +75,7 @@ const CartProvider = props => {
     });
   };
 
-  const removeIteamToCartHandler = id => {
+  const removeIteamToCartHandler = (id: string) => {
     dispatchCartAction({
       type: "REMOVE",
       id,
