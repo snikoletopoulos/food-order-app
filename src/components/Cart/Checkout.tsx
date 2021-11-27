@@ -1,8 +1,8 @@
 import styles from "./Checkout.module.css";
 import { useRef, useState } from "react";
 
-const isEmpty = value => !value.trim();
-const isFiveChars = value => value.trim().length === 5;
+const isEmpty = (value: string) => !value.trim();
+const isFiveChars = (value: string) => value.trim().length === 5;
 
 const Checkout = props => {
   const [formInputsValidity, setFormInputsValidity] = useState({
@@ -12,11 +12,10 @@ const Checkout = props => {
     postalCode: true,
   });
 
-  const nameInputRef = useRef();
-  const streetInputRef = useRef();
-  const cityInputRef = useRef();
-  const postalInputRef = useRef();
-
+  const nameInputRef = useRef(null);
+  const streetInputRef = useRef(null);
+  const cityInputRef = useRef(null);
+  const postalInputRef = useRef(null);
   const confirmHandler = event => {
     event.preventDefault();
 
@@ -99,7 +98,11 @@ const Checkout = props => {
         <button type="button" onClick={props.onCancel}>
           Cancel
         </button>
-        <button className={styles.submit} onClick={confirmHandler}>
+        <button
+          className={styles.submit}
+          type="button"
+          onClick={confirmHandler}
+        >
           Confirm
         </button>
       </div>

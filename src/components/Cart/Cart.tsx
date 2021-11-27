@@ -6,13 +6,13 @@ import CartItem from "./CartItem";
 import Checkout from "./Checkout";
 import axios from "axios";
 
-const Cart = props => {
+const Cart = (props: Props) => {
   const [isCheckout, setIsCheckout] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [didSubmit, setDidSubmit] = useState(false);
   const cartContext = useContext(CartContext);
 
-  const cartItemRemoveHandler = id => {
+  const cartItemRemoveHandler = (id: string) => {
     cartContext.removeItem(id);
   };
 
@@ -90,7 +90,7 @@ const Cart = props => {
     <>
       <p>Succesfully send the order!</p>
       <div className={styles.actions}>
-        <button className={styles.button} onClick={props.onClose}>
+        <button className={styles.button} type="button" onClick={props.onClose}>
           Close
         </button>
       </div>
@@ -107,3 +107,7 @@ const Cart = props => {
 };
 
 export default Cart;
+
+interface Props {
+  onClose: () => void;
+}

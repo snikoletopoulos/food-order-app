@@ -5,8 +5,8 @@ import MealItem from "./MealItem/MealItem";
 import axios from "axios";
 
 const AvailableMeals = () => {
-  const [meals, setMeals] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [meals, setMeals] = useState<IMeals[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [httpError, setHttpError] = useState<boolean>(false);
 
   useEffect(() => {
@@ -71,3 +71,10 @@ const AvailableMeals = () => {
 };
 
 export default AvailableMeals;
+
+interface IMeals {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+}
