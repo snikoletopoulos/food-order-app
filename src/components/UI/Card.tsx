@@ -7,5 +7,5 @@ const Card = (props: Props) => {
 export default Card;
 
 interface Props {
-  children: JSX.Element;
+  children: React.ReactNode;
 }

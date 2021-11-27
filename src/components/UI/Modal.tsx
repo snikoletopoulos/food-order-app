@@ -14,7 +14,7 @@ const ModalOverlay = ( props:ModalOverlayProps ) => {
 };
 
 interface ModalOverlayProps {
-  children: JSX.Element;
+  children: React.ReactNode;
 }
 
 const portalElement = document.getElementById("overlays");
@@ -35,5 +35,5 @@ export default Modal;
 
 interface ModalProps {
   onClose: () => void;
-  children: JSX.Element;
+  children: React.ReactNode;
 }
