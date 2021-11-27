@@ -2,12 +2,13 @@ import styles from "./MealItem.module.css";
 import { useContext } from "react";
 import CartContext from "../../../store/cart-context";
 import MealItemForm from "./MealItemForm";
+import type { IMeals } from "../../../store/meals-context";
 
-const MealItem = ( props: Props ) => {
+const MealItem = (props: IMeals) => {
   const cartContext = useContext(CartContext);
   const price = `$${props.price.toFixed(2)}`;
 
-  const addToCartHandler = (amount: number):void => {
+  const addToCartHandler = (amount: number): void => {
     cartContext.addItem({
       id: props.id,
       name: props.name,
@@ -31,10 +32,3 @@ const MealItem = ( props: Props ) => {
 };
 
 export default MealItem;
-
-interface Props {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-}

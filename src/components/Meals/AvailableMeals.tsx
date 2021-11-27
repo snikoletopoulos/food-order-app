@@ -3,6 +3,7 @@ import styles from "./AvailableMeals.module.css";
 import Card from "../UI/Card";
 import MealItem from "./MealItem/MealItem";
 import axios from "axios";
+import type { IMeals } from "../../store/meals-context";
 
 const AvailableMeals = () => {
   const [meals, setMeals] = useState<IMeals[]>([]);
@@ -71,10 +72,3 @@ const AvailableMeals = () => {
 };
 
 export default AvailableMeals;
-
-interface IMeals {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-}

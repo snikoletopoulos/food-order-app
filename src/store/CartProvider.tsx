@@ -1,12 +1,12 @@
 import { useReducer } from "react";
-import CartContext from "./cart-context";
+import CartContext, { IMeals, IContext } from "./cart-context";
 
 const defaultCartState = {
   items: [],
   totalAmount: 0,
 };
 
-const cartReducer = (state, action) => {
+const cartReducer = (state: IContext, action: any) => {
   if (action.type === "ADD") {
     const updatedTotalAmount =
       state.totalAmount + action.item.price * action.item.amount;
@@ -15,10 +15,10 @@ const cartReducer = (state, action) => {
       item => item.id === action.item.id
     );
     const existingCartItem = state.items[existingCartItemIndex];
-    let updatedItems;
+    let updatedItems: IMeals[] = [];
 
     if (existingCartItem) {
-      const updatedItem = {
+      const updatedItem: IMeals = {
         ...existingCartItem,
         amount: existingCartItem.amount + action.item.amount,
       };
@@ -40,11 +40,11 @@ const cartReducer = (state, action) => {
 
     const updatedTotalAmount = state.totalAmount - existingItem.price;
 
-    let updatedItems;
+    let updatedItems: IMeals[] = [];
     if (existingItem.amount === 1) {
       updatedItems = state.items.filter(item => item.id !== action.id);
     } else {
-      const updatedItem = {
+      const updatedItem: IMeals = {
         ...existingItem,
         amount: existingItem.amount - 1,
       };
@@ -62,13 +62,13 @@ const cartReducer = (state, action) => {
   return defaultCartState;
 };
 
-const CartProvider = props => {
+const CartProvider = (props: Props) => {
   const [cartState, dispatchCartAction] = useReducer(
     cartReducer,
     defaultCartState
   );
 
-  const addIteamToCartHandler = item => {
+  const addIteamToCartHandler = (item: IMeals) => {
     dispatchCartAction({
       type: "ADD",
       item,
@@ -86,7 +86,7 @@ const CartProvider = props => {
     dispatchCartAction({ type: "CLEAR" });
   };
 
-  const cartContext = {
+  const cartContext: IContext = {
     items: cartState.items,
     totalAmount: cartState.totalAmount,
     addItem: addIteamToCartHandler,
@@ -101,3 +101,7 @@ const CartProvider = props => {
 };
 
 export default CartProvider;
+
+interface Props {
+  children: React.ReactNode;
+}
